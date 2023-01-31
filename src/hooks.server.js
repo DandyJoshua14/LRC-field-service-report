@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 // @ts-ignore
-import { MONGO_URL } from '$env/static/private';
+// import { MONGO_URL } from '$env/static/private';
 
 
 mongoose.connect(MONGO_URL, () => {
