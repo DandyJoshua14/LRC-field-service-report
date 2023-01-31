@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 // @ts-ignore
-import { LOCAL_MONGO_URL } from '$env/static/private';
+import { MONGO_URL } from '$env/static/private';
 
 
-mongoose.connect(LOCAL_MONGO_URL, () => {
+mongoose.connect(MONGO_URL, () => {
     console.log('Connected To Databse')
 })
 

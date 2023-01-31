@@ -16,18 +16,20 @@
 	$: {
 		if (form?.success) {
 			$email = data.userInfo.email;
-			console.log(data.reps);
 			$reports = data.reps;
 			$userName = data.userInfo.name;
 			$role = data.userInfo.admin;
 			$validate = data.userInfo.submitted;
-			console.log($userName);
 		}
 		if ($userName) {
 			goto('/home');
 		}
 	}
 </script>
+
+<svelte:head>
+	<title>Login to LRC Report App</title>
+</svelte:head>
 
 <body>
 	<Container>

@@ -4,10 +4,10 @@ import { User, Report } from '../hooks.server';
 
 // async function createUser() {
 //     const user = await User.create({
-//         name: "Dandy",
+//         name: "dandy",
 //         password: "dandy",
 //         email: "dandyjoshua14@gmail.com",
-//         admin: false,
+//         admin: true,
 //         lastLogin: new Date
 //     });
 //     await user.save()
@@ -43,14 +43,13 @@ let password;
 export const actions = {
     login: async ({ request }) => {
       const data = await request.formData();
-      username = data.get('name');
-      password = data.get('password')
-      console.log(username, 'name')
+      // @ts-ignore
+      username = data.get('name').toLowerCase();
+      // @ts-ignore
+      password = data.get('password').toLowerCase();
       const user = await User.findOne({ name: `${username}` });
       // @ts-ignore
       await User.updateOne({ name: `${username}`}, { $set: { lastLogin: new Date}})
-      // console.log(user.name, 'Name From DataBase')
-    //   cookies.set('sessionid', await db.createSession(user));
     // @ts-ignore
       if (!user || !password || password !== user.password) {
         return { 
@@ -70,7 +69,6 @@ export const actions = {
   export async function load() {
     const res = await User.findOne({ name: `${username}`}).exec();
     const rep = await Report.find();
-    console.log(rep)
     // @ts-ignore
     return {
       userInfo: JSON.parse(JSON.stringify(res)),

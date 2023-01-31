@@ -2,7 +2,6 @@ import { User, Report } from '../../hooks.server';
 export const actions = {
     // @ts-ignore
     submit: async({ request }) => {
-        console.log(request)
         const data = await request.formData();
         const name = data.get("name");
         const hours = data.get("hours");
@@ -27,11 +26,10 @@ export const actions = {
     },
     // @ts-ignore
     register: async({ request }) => {
-        console.log(request)
         const data = await request.formData();
-        const name = data.get("name");
-        const email = data.get("email")
-        const password = data.get("password")
+        const name = data.get("name").toLowerCase();
+        const email = data.get("email").toLowerCase();
+        const password = data.get("password").toLowerCase();
         const lastLogin = new Date
         const admin = false
         const user = await User.create({

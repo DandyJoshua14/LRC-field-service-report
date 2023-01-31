@@ -1,17 +1,17 @@
 <script>
+	// @ts-nocheck
+
 	import { goto } from '$app/navigation';
 	import { Container, Input, Button } from 'sveltestrap';
 	import { userName, role, reports, email, validate } from '../../stores';
 	import { enhance } from '$app/forms';
 	let useClass = false;
-	console.log('username: ', $userName);
 	/**
 	 * @type {string | boolean | any[] | null}
 	 */
 	let userReports = $reports;
 	let filteredReports = userReports;
 	let searchTerm = '';
-	console.log($reports, 'ion');
 	$: {
 		// @ts-ignore
 		filteredReports = userReports;
@@ -32,7 +32,6 @@
 			useClass = false;
 		}
 	}
-	console.log($userName);
 	/**
 	 * @type {{ success: any; missing: any; incorrect: any; }}
 	 */
@@ -80,10 +79,23 @@
 					<h4 style="text-decoration: underline dotted;">{$userName}(Admin)</h4>
 					<br />
 					<Input type="text" placeholder="Search Report" bind:value={searchTerm} />
+					<br />
 					{#if filteredReports}
 						{#each filteredReports as report, index}
-							<h3>{index + 1}. {report.hours}</h3>
-							<br />
+							<div style="border: 1px solid black; border-radius: 10px;">
+								<h3 style="text-align: left; padding: 10px; text-decoration: 2px underline;">
+									{index + 1}. {report.name}
+								</h3>
+								<p><b>Hours: {report.hours}</b></p>
+								<hr />
+								<p><b>Placements: {report.placements}</b></p>
+								<hr />
+								<p><b>R/V's: {report.returnVisits}</b></p>
+								<hr />
+								<p><b>Bible Studies: {report.bibleStudies}</b></p>
+								<hr />
+								<p><b>Videos: {report.videos}</b></p>
+							</div>
 						{/each}
 					{/if}
 					<br /><br />
