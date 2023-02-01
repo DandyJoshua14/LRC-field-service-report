@@ -1,9 +1,8 @@
 import mongoose from 'mongoose';
 // @ts-ignore
-import { MONGO_URL } from '$env/dynamic/private';
 
 
-mongoose.connect(MONGO_URL, () => {
+mongoose.connect("mongodb+srv://Rylldanex:Danexoer_pxd123@cluster0.vuzhi.mongodb.net/?retryWrites=true&w=majority", () => {
     console.log('Connected To Databse')
 })
 
