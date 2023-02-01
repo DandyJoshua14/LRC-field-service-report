@@ -4,9 +4,9 @@ import { User, Report } from '../hooks.server';
 
 // async function createUser() {
 //     const user = await User.create({
-//         name: "dandy",
-//         password: "dandy",
-//         email: "dandyjoshua14@gmail.com",
+//         name: "shedrach",
+//         password: "shedy123",
+//         email: "sheddy123@gmail.com",
 //         admin: true,
 //         lastLogin: new Date
 //     });

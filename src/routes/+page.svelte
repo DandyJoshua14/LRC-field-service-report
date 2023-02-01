@@ -54,7 +54,6 @@
 				<b>Login Successful. Redirecting!!! <br /></b>
 			</p>
 		{/if}
-		{#if form?.missing}<p class="error">The email field is required</p>{/if}
 		{#if form?.incorrect}<p class="error">Invalid credentials!</p>{/if}
 	</Container>
 </body>
