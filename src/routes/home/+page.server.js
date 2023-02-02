@@ -11,6 +11,8 @@ export const actions = {
         const videos = data.get("videos")
         const submitted = true
         const admin = data.get("role")
+        const fsg = data.get("fsg")
+        await User.updateOne({ name: `${name}`}, { $set: { submitted: submitted } });
         const report = await Report.create({
             name,
             hours,
@@ -19,7 +21,8 @@ export const actions = {
             bibleStudies,
             videos,
             submitted,
-            admin
+            admin,
+            fsg
         })
         report.save()
         console.log("Report Submitted")
@@ -32,26 +35,46 @@ export const actions = {
         const password = data.get("password").toLowerCase();
         const lastLogin = new Date
         const admin = false
+        const privOfSer = data.get("privOfSer")
+        const fsg = data.get("fsg")
         const user = await User.create({
             name,
             email,
             password,
             lastLogin,
-            admin
+            admin,
+            fsg,
+            privOfSer,
         })
-        user.save()
-        console.log("User Created")
-        return {
-            missing: false,
-            success: true,
-            incorrect: false
+        if(!email || !name || !password){
+            return {
+                missing: true,
+                success: false,
+                incorrect: true
+            }    
+        } else {
+            user.save();
+            console.log("User Created")
+            return {
+                missing: false,
+                success: true,
+                incorrect: false
+            }
         }
     }
 }
 
 export async function load() {
     const res = await Report.find().exec();
+    const filterSubmits = await Report.countDocuments({ submitted: true})
+    const regularPionners = await User.countDocuments({ privOfSer: "regular pioneer"})
+    const auxPionners = await User.countDocuments({ privOfSer: "auxiliary pioneer"})
+    const count = await User.countDocuments()
     return {
-        response: JSON.parse(JSON.stringify(res))
+        rp: JSON.parse(JSON.stringify(regularPionners)),
+        ap: JSON.parse(JSON.stringify(auxPionners)),
+        response: JSON.parse(JSON.stringify(res)),
+        filSub: JSON.parse(JSON.stringify(filterSubmits)),
+        enum: JSON.parse(JSON.stringify(count))
     }
 }

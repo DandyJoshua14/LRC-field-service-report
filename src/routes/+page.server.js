@@ -4,17 +4,34 @@ import { User, Report } from '../hooks.server';
 
 // async function createUser() {
 //     const user = await User.create({
-//         name: "shedrach",
-//         password: "shedy123",
-//         email: "sheddy123@gmail.com",
+//         name: "dandy",
+//         password: "dandy123",
+//         email: "dandyjoshua14@gmail.com",
 //         admin: true,
-//         lastLogin: new Date
+//         lastLogin: new Date,
+//          fsg: 3,
+//         privOfSer: "regular pioneer"
 //     });
 //     await user.save()
 //     console.log("User Saved")
 // }
 
 // createUser();
+
+// async function createNewUser() {
+//   const user = await User.create({
+//       name: "shedrach",
+//       password: "shedy123",
+//       email: "shedy123@gmail.com",
+//       admin: true,
+//       lastLogin: new Date,
+//        fsg: 2
+//   });
+//   await user.save()
+//   console.log("User Saved")
+// }
+
+// createNewUser();
 
 // async function createReport() {
 //     const reportdetails = await Report.create({
@@ -69,10 +86,12 @@ export const actions = {
   export async function load() {
     const res = await User.findOne({ name: `${username}`}).exec();
     const rep = await Report.find();
+    const users = await User.find();
     // @ts-ignore
     return {
       userInfo: JSON.parse(JSON.stringify(res)),
       reps: JSON.parse(JSON.stringify(rep)),
+      users: JSON.parse(JSON.stringify(users)),
       success: true,
     }
   }

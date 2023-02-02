@@ -1,8 +1,9 @@
+import { LOCAL_MONGO_URL } from '$env/static/private';
 import mongoose from 'mongoose';
 // @ts-ignore
 
 
-mongoose.connect("mongodb+srv://Rylldanex:Danexoer_pxd123@cluster0.vuzhi.mongodb.net/?retryWrites=true&w=majority", () => {
+mongoose.connect(LOCAL_MONGO_URL, () => {
     console.log('Connected To Databse')
 })
 
@@ -14,13 +15,20 @@ const reportSchema = new mongoose.Schema({
     returnVisits: Number,
     bibleStudies: Number,
     videos: Number,
-    submitted: Boolean,
-    admin: Boolean
+    submitted: {
+        type: Boolean,
+        default: false
+    },
+    admin: Boolean,
+    fsg: Number
    
 })
 
 const userSchema = new mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true
+    },
     email: {
         required: true,
         type: String
@@ -38,7 +46,18 @@ const userSchema = new mongoose.Schema({
         required: true,
         default: false
     },
-    submitted: Boolean,
+    fsg: {
+        type: Number,
+        required: true
+    },
+    submitted: {
+        type: Boolean,
+        default: false
+    },
+    privOfSer: {
+        type: String,
+        default: "none"
+    }
 })
 
 

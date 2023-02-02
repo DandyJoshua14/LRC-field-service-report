@@ -1,5 +1,5 @@
 <script>
-	import { userName, role, reports, email, validate } from '../stores';
+	import { userName, role, reports, email, validate, fsg, users, privOfSer } from '../stores';
 	import { goto } from '$app/navigation';
 	import { Button, Container, Input } from 'sveltestrap';
 	import { enhance } from '$app/forms';
@@ -20,6 +20,9 @@
 			$userName = data.userInfo.name;
 			$role = data.userInfo.admin;
 			$validate = data.userInfo.submitted;
+			$fsg = data.userInfo.fsg;
+			$privOfSer = data.userInfo.privOfSer;
+			$users = data.users;
 		}
 		if ($userName) {
 			goto('/home');
@@ -35,6 +38,8 @@
 	<Container>
 		<br />
 		<form method="POST" action="?/login" use:enhance style="text-align: center; display: block;">
+			<h3>Login To LRC Report App</h3>
+			<br />
 			<label>
 				Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input name="name" type="text" />
@@ -54,7 +59,7 @@
 				<b>Login Successful. Redirecting!!! <br /></b>
 			</p>
 		{/if}
-		{#if form?.incorrect}<p class="error">Invalid credentials!</p>{/if}
+		{#if form?.missing}<p class="error">Invalid credentials!</p>{/if}
 	</Container>
 </body>
 

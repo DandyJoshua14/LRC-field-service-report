@@ -20,3 +20,15 @@ email.subscribe((val) => browser && localStorage.setItem("email", val));
 export let validate = writable(browser && localStorage.getItem("validate"));
 // @ts-ignore
 validate.subscribe((val) => browser && localStorage.setItem("validate", val));
+
+export let fsg = writable(browser && localStorage.getItem("fsg"));
+// @ts-ignore
+fsg.subscribe((val) => browser && localStorage.setItem("fsg", val));
+
+export let users = writable(browser && localStorage.getItem("users"));
+// @ts-ignore
+users.subscribe((val) => browser && localStorage.setItem("users", val));
+
+export let privOfSer = writable(browser && localStorage.getItem("privOfSer"));
+// @ts-ignore
+privOfSer.subscribe((val) => browser && localStorage.setItem("privOfSer", val));

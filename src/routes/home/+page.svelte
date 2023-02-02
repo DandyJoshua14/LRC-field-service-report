@@ -3,22 +3,28 @@
 
 	import { goto } from '$app/navigation';
 	import { Container, Input, Button } from 'sveltestrap';
-	import { userName, role, reports, email, validate } from '../../stores';
+	import { userName, role, reports, email, validate, fsg, privOfSer } from '../../stores';
 	import { enhance } from '$app/forms';
 	let useClass = false;
+	export let data;
 	/**
 	 * @type {string | boolean | any[] | null}
 	 */
+	let numOfPub = 94;
+	let numOfRegPub = data.enum;
+	let ap = data.ap;
+	let rp = data.rp;
 	let userReports = $reports;
 	let filteredReports = userReports;
 	let searchTerm = '';
+	let filSub = data.filSub;
 	$: {
 		// @ts-ignore
 		filteredReports = userReports;
 		if (searchTerm) {
 			// @ts-ignore
 			filteredReports = userReports.filter((array) => {
-				return array.hours.toString().toLowerCase().includes(searchTerm.toLowerCase());
+				return array.name.toString().toLowerCase().includes(searchTerm.toLowerCase());
 			});
 		} else {
 			// @ts-ignore
@@ -34,6 +40,7 @@
 	}
 	/**
 	 * @type {{ success: any; missing: any; incorrect: any; }}
+	 *
 	 */
 	export let form;
 </script>
@@ -49,8 +56,7 @@
 					<form method="POST" action="?/submit" use:enhance>
 						<h2 style="text-align: center;">January Report</h2>
 						<br />
-						<h5>Name:</h5>
-						<Input name="name" type="text" value={$userName} />
+						<Input name="name" type="hidden" value={$userName} />
 						<br />
 						<br />
 						<h5>Hours:</h5>
@@ -65,10 +71,9 @@
 						<Input name="biblestudies" type="number" /><br /><br />
 						<h5>Videos:</h5>
 						<Input name="videos" type="number" /><br /><br />
-						<h5>Admin Role:</h5>
-						<Input name="role" type="text" bind:value={$role} /><br /><br />
-						<h5>Email:</h5>
-						<Input name="role" type="text" value={$email} disabled /><br /><br />
+						<Input name="role" type="hidden" value={$role} /><br /><br />
+						<Input name="email" type="hidden" value={$email} /><br /><br />
+						<Input name="fsg" type="hidden" value={$fsg} /><br /><br />
 						<Button color="success">Submit Report</Button>
 					</form>
 				{:else}
@@ -80,23 +85,66 @@
 					<br />
 					<Input type="text" placeholder="Search Report" bind:value={searchTerm} />
 					<br />
+					<table class="table1">
+						<tr>
+							<th>Field</th>
+							<th>Value</th>
+						</tr>
+						<tr>
+							<td>Number Of Publishers</td>
+							<td>{numOfPub}</td>
+						</tr>
+						<tr>
+							<td>Number Of Reports Submitted</td>
+							{#if numOfPub > filSub}
+								<td style="color: red;">{filSub}</td>
+							{:else}
+								<td style="color: green;">{filSub}</td>
+							{/if}
+						</tr>
+						<tr>
+							<td>Number Of Registered Publishers</td>
+							{#if numOfPub > numOfRegPub}
+								<td style="color: red;">{numOfRegPub}</td>
+							{:else}
+								<td style="color: green;">{numOfRegPub}</td>
+							{/if}
+						</tr>
+						<tr>
+							<td>Number Of Regular Pionners</td>
+							<td>{rp}</td>
+						</tr>
+						<tr>
+							<td>Number Of Auxiliary Pionners</td>
+							<td>{ap}</td>
+						</tr>
+					</table>
+					<br />
 					{#if filteredReports}
-						{#each filteredReports as report, index}
-							<div style="border: 1px solid black; border-radius: 10px;">
-								<h3 style="text-align: left; padding: 10px; text-decoration: 2px underline;">
-									{index + 1}. {report.name}
-								</h3>
-								<p><b>Hours: {report.hours}</b></p>
-								<hr />
-								<p><b>Placements: {report.placements}</b></p>
-								<hr />
-								<p><b>R/V's: {report.returnVisits}</b></p>
-								<hr />
-								<p><b>Bible Studies: {report.bibleStudies}</b></p>
-								<hr />
-								<p><b>Videos: {report.videos}</b></p>
-							</div>
-						{/each}
+						<table>
+							<tr>
+								<th>S/N</th>
+								<th>Name</th>
+								<th>Hours</th>
+								<th>Placements</th>
+								<th>Return Visits</th>
+								<th>Bible Studies</th>
+								<th>Videos</th>
+								<th>Group No.</th>
+							</tr>
+							{#each filteredReports as report, index}
+								<tr>
+									<td>{index + 1}.</td>
+									<td>{report.name}</td>
+									<td>{report.hours}</td>
+									<td>{report.placements}</td>
+									<td>{report.returnVisits}</td>
+									<td>{report.bibleStudies}</td>
+									<td>{report.videos}</td>
+									<td>{report.fsg}</td>
+								</tr>
+							{/each}
+						</table>
 					{/if}
 					<br /><br />
 					<Button color="primary" on:click={showForm}>Create User</Button>
@@ -105,24 +153,31 @@
 							<form method="POST" action="?/register" use:enhance>
 								<br />
 								<h5>Name:</h5>
-								<input name="name" type="text" />
+								<Input name="name" type="text" />
 
 								<br />
 								<br />
 
 								<h5>Password:</h5>
-								<input name="password" type="password" />
+								<Input name="password" type="password" />
 								<br />
 								<br />
 
 								<h5>Email:</h5>
-								<input name="email" type="email" />
+								<Input name="email" type="email" />
 								<br />
 								<br />
 
-								<h5>Admin Role:</h5>
-								<input type="text" value="false" disabled />
-
+								<h5>Field Service Group No.</h5>
+								<Input type="number" name="fsg" />
+								<br />
+								<br />
+								<h5>Priviledge Of Service</h5>
+								<Input type="select" name="privOfSer">
+									<option value="none">none</option>
+									<option value="regular pioneer">regular pioneer</option>
+									<option value="auxiliary pioneer">auxiliary pioneer</option>
+								</Input>
 								<br />
 								<br />
 								<Button color="success">Create User</Button>
@@ -132,8 +187,7 @@
 									<b>User Created!!! <br /></b>
 								</p>
 							{/if}
-							{#if form?.missing}<p class="error">The email field is required</p>{/if}
-							{#if form?.incorrect}<p class="error">Invalid credentials!</p>{/if}
+							{#if form?.missing}<p class="error">Incomplete credentials!</p>{/if}
 						</Container>
 					{/if}
 				{/if}
@@ -157,5 +211,27 @@
 	}
 	h5 {
 		text-align: left;
+	}
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	.table1 {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 20%;
+	}
+
+	td,
+	th {
+		border: 1px solid #dddddd;
+		text-align: left;
+		padding: 8px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #dddddd;
 	}
 </style>
