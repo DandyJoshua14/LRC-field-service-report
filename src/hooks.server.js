@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 // @ts-ignore
 
 
-mongoose.connect(process.env.LOCAL_MONGO_URL, () => {
+mongoose.connect(process.env.MONGO_URL, () => {
     console.log('Connected To Databse')
 })
 

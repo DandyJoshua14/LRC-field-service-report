@@ -2,37 +2,37 @@ import { User, Report } from '../hooks.server';
 
 
 
-async function createUser() {
-    const user = await User.create({
-        name: "dandy",
-        password: "dandy123",
-        email: "dandyjoshua14@gmail.com",
-        admin: true,
-        lastLogin: new Date,
-         fsg: 3,
-        privOfSer: "none"
-    });
-    await user.save()
-    console.log("User Saved")
-}
+// async function createUser() {
+//     const user = await User.create({
+//         name: "dandy",
+//         password: "dandy123",
+//         email: "dandyjoshua14@gmail.com",
+//         admin: true,
+//         lastLogin: new Date,
+//          fsg: 3,
+//         privOfSer: "none"
+//     });
+//     await user.save()
+//     console.log("User Saved")
+// }
 
-createUser();
+// createUser();
 
-async function createNewUser() {
-  const user = await User.create({
-      name: "shedrach",
-      password: "shedy123",
-      email: "shedy123@gmail.com",
-      admin: true,
-      lastLogin: new Date,
-       fsg: 2,
-      privOfSer: "none"
-  });
-  await user.save()
-  console.log("User Saved")
-}
+// async function createNewUser() {
+//   const user = await User.create({
+//       name: "shedrach",
+//       password: "shedy123",
+//       email: "shedy123@gmail.com",
+//       admin: true,
+//       lastLogin: new Date,
+//        fsg: 2,
+//       privOfSer: "none"
+//   });
+//   await user.save()
+//   console.log("User Saved")
+// }
 
-createNewUser();
+// createNewUser();
 
 // async function createReport() {
 //     const reportdetails = await Report.create({
