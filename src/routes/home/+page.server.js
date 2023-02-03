@@ -12,7 +12,6 @@ export const actions = {
         const submitted = true
         const admin = data.get("role")
         const fsg = data.get("fsg")
-        await User.updateOne({ name: `${name}`}, { $set: { submitted: submitted } });
         const report = await Report.create({
             name,
             hours,

@@ -1,9 +1,12 @@
-import { LOCAL_MONGO_URL } from '$env/static/private';
+import * as dotenv from 'dotenv';
+
+dotenv.config()
+
 import mongoose from 'mongoose';
 // @ts-ignore
 
 
-mongoose.connect(LOCAL_MONGO_URL, () => {
+mongoose.connect(process.env.LOCAL_MONGO_URL, () => {
     console.log('Connected To Databse')
 })
 
@@ -20,7 +23,11 @@ const reportSchema = new mongoose.Schema({
         default: false
     },
     admin: Boolean,
-    fsg: Number
+    fsg: Number,
+    privOfSer: {
+        type: String,
+        default: "none"
+    }
    
 })
 
@@ -49,10 +56,6 @@ const userSchema = new mongoose.Schema({
     fsg: {
         type: Number,
         required: true
-    },
-    submitted: {
-        type: Boolean,
-        default: false
     },
     privOfSer: {
         type: String,

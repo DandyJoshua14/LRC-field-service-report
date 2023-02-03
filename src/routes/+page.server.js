@@ -85,13 +85,25 @@ export const actions = {
 
   export async function load() {
     const res = await User.findOne({ name: `${username}`}).exec();
+    const response = await Report.findOne({ name: `${username}`});
     const rep = await Report.find();
     const users = await User.find();
     // @ts-ignore
-    return {
-      userInfo: JSON.parse(JSON.stringify(res)),
-      reps: JSON.parse(JSON.stringify(rep)),
-      users: JSON.parse(JSON.stringify(users)),
-      success: true,
+    if(response === null) {
+      return {
+        respond: false,
+        userInfo: JSON.parse(JSON.stringify(res)),
+        reps: JSON.parse(JSON.stringify(rep)),
+        users: JSON.parse(JSON.stringify(users)),
+        success: true,
+      }
+    } else {
+      return {
+        respond: JSON.parse(JSON.stringify(response)),
+        userInfo: JSON.parse(JSON.stringify(res)),
+        reps: JSON.parse(JSON.stringify(rep)),
+        users: JSON.parse(JSON.stringify(users)),
+        success: true,
+    }
     }
   }

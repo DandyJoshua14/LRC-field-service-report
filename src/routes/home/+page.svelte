@@ -54,6 +54,7 @@
 			<div class="form">
 				{#if !$validate}
 					<form method="POST" action="?/submit" use:enhance>
+						<br />
 						<h2 style="text-align: center;">January Report</h2>
 						<br />
 						<Input name="name" type="hidden" value={$userName} />
@@ -72,8 +73,9 @@
 						<h5>Videos:</h5>
 						<Input name="videos" type="number" /><br /><br />
 						<Input name="role" type="hidden" value={$role} /><br /><br />
+						<Input name="privOfSer" type="hidden" value={$privOfSer} />
 						<Input name="email" type="hidden" value={$email} /><br /><br />
-						<Input name="fsg" type="hidden" value={$fsg} /><br /><br />
+						<Input name="fsg" type="hidden" value={$fsg} />
 						<Button color="success">Submit Report</Button>
 					</form>
 				{:else}
@@ -85,42 +87,8 @@
 					<br />
 					<Input type="text" placeholder="Search Report" bind:value={searchTerm} />
 					<br />
-					<table class="table1">
-						<tr>
-							<th>Field</th>
-							<th>Value</th>
-						</tr>
-						<tr>
-							<td>Number Of Publishers</td>
-							<td>{numOfPub}</td>
-						</tr>
-						<tr>
-							<td>Number Of Reports Submitted</td>
-							{#if numOfPub > filSub}
-								<td style="color: red;">{filSub}</td>
-							{:else}
-								<td style="color: green;">{filSub}</td>
-							{/if}
-						</tr>
-						<tr>
-							<td>Number Of Registered Publishers</td>
-							{#if numOfPub > numOfRegPub}
-								<td style="color: red;">{numOfRegPub}</td>
-							{:else}
-								<td style="color: green;">{numOfRegPub}</td>
-							{/if}
-						</tr>
-						<tr>
-							<td>Number Of Regular Pionners</td>
-							<td>{rp}</td>
-						</tr>
-						<tr>
-							<td>Number Of Auxiliary Pionners</td>
-							<td>{ap}</td>
-						</tr>
-					</table>
-					<br />
 					{#if filteredReports}
+						<h3>Publishers Reports</h3>
 						<table>
 							<tr>
 								<th>S/N</th>
@@ -145,9 +113,52 @@
 								</tr>
 							{/each}
 						</table>
+						<br />
+						<br />
+						<br />
+						<table class="table1">
+							<tr>
+								<th>Stats</th>
+								<th />
+							</tr>
+							<tr>
+								<th>Field</th>
+								<th>Value</th>
+							</tr>
+							<tr>
+								<td>Number Of Publishers</td>
+								<td>{numOfPub}</td>
+							</tr>
+							<tr>
+								<td>Number Of Reports Submitted</td>
+								{#if numOfPub > filSub}
+									<td style="color: red;">{filSub}</td>
+								{:else}
+									<td style="color: green;">{filSub}</td>
+								{/if}
+							</tr>
+							<tr>
+								<td>Number Of Registered Publishers</td>
+								{#if numOfPub > numOfRegPub}
+									<td style="color: red;">{numOfRegPub}</td>
+								{:else}
+									<td style="color: green;">{numOfRegPub}</td>
+								{/if}
+							</tr>
+							<tr>
+								<td>Number Of Regular Pionners</td>
+								<td>{rp}</td>
+							</tr>
+							<tr>
+								<td>Number Of Auxiliary Pionners</td>
+								<td>{ap}</td>
+							</tr>
+						</table>
 					{/if}
 					<br /><br />
 					<Button color="primary" on:click={showForm}>Create User</Button>
+					<br />
+					<br />
 					{#if useClass === true}
 						<Container>
 							<form method="POST" action="?/register" use:enhance>
@@ -180,6 +191,7 @@
 								</Input>
 								<br />
 								<br />
+
 								<Button color="success">Create User</Button>
 							</form>
 							{#if form?.success}
@@ -221,7 +233,7 @@
 	.table1 {
 		font-family: arial, sans-serif;
 		border-collapse: collapse;
-		width: 20%;
+		width: 45%;
 	}
 
 	td,

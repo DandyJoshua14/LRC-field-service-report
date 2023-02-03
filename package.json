@@ -27,6 +27,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"dotenv": "^16.0.3",
 		"mongoose": "^6.9.0",
 		"sveltestrap": "^5.10.0"
 	}

@@ -19,7 +19,7 @@
 			$reports = data.reps;
 			$userName = data.userInfo.name;
 			$role = data.userInfo.admin;
-			$validate = data.userInfo.submitted;
+			$validate = data.respond.submitted;
 			$fsg = data.userInfo.fsg;
 			$privOfSer = data.userInfo.privOfSer;
 			$users = data.users;
