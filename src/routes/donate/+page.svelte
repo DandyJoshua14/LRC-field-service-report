@@ -22,6 +22,9 @@
 			console.log('window closed');
 		}
 	};
+	/**
+	 * @param {{ (): void; (): void; }} fn
+	 */
 	function handlePayment(fn) {
 		config.email = email;
 		config.amount = parseFloat(payAmount) * 100;
@@ -36,7 +39,7 @@
 <Paystack {config} />
 <Container>
 	<div class="payment-form">
-		<h3>Donate !</h3>
+		<h3>Donate To LRC Calabar!</h3>
 		<Paystack let:usePayInline {config}
 			><br />
 			<h5>First Name:</h5>
