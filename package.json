@@ -29,6 +29,7 @@
 	"dependencies": {
 		"dotenv": "^16.0.3",
 		"mongoose": "^6.9.0",
+		"svelte-paystack": "^0.2.2",
 		"sveltestrap": "^5.10.0"
 	}
 }

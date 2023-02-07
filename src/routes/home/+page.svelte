@@ -83,6 +83,7 @@
 				{/if}
 				<br />
 				{#if $role}
+					<a href="/donate"><Button color="primary">Make Donations Page</Button></a>
 					<h4 style="text-decoration: underline dotted;">{$userName}(Admin)</h4>
 					<br />
 					<Input type="text" placeholder="Search Report" bind:value={searchTerm} />
