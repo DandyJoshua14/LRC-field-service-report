@@ -28,7 +28,7 @@ export const actions = {
                 amount
             })
         }).then((data) => apiResponse = data)
-        .catch((e) => console.error(e.message))
+        // .catch((e) => console.error(e.message))
         
         // console.log(apiResponse, 'promise')
         return apiResponse.json()
