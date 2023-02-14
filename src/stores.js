@@ -32,3 +32,7 @@ users.subscribe((val) => browser && localStorage.setItem("users", val));
 export let privOfSer = writable(browser && localStorage.getItem("privOfSer"));
 // @ts-ignore
 privOfSer.subscribe((val) => browser && localStorage.setItem("privOfSer", val));
+
+export let month = writable(browser && localStorage.getItem("month"));
+// @ts-ignore
+month.subscribe((val) => browser && localStorage.setItem("month", val));

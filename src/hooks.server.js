@@ -10,6 +10,7 @@ mongoose.connect(process.env.MONGO_URL, () => {
     console.log('Connected To Databse')
 })
 
+
 const reportSchema = new mongoose.Schema({
     name: String,
     email: String,
@@ -27,7 +28,8 @@ const reportSchema = new mongoose.Schema({
     privOfSer: {
         type: String,
         default: "none"
-    }
+    },
+    month: String
    
 })
 

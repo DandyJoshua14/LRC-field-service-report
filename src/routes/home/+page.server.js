@@ -12,6 +12,7 @@ export const actions = {
         const submitted = true
         const admin = data.get("role")
         const fsg = data.get("fsg")
+        const month = data.get("month")
         const report = await Report.create({
             name,
             hours,
@@ -21,7 +22,8 @@ export const actions = {
             videos,
             submitted,
             admin,
-            fsg
+            fsg,
+            month
         })
         report.save()
         console.log("Report Submitted")
@@ -44,6 +46,7 @@ export const actions = {
             admin,
             fsg,
             privOfSer,
+            
         })
         if(!email || !name || !password){
             return {

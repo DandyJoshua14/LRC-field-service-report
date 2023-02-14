@@ -1,68 +1,54 @@
 <script>
-	import Paystack from 'svelte-paystack/src';
-
-	//import your custom-component
-	import { Button, Input, Container } from 'sveltestrap';
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+	import { Input, Button, Container } from 'sveltestrap';
 	let payAmount = '';
 	let email = '';
-	let firstName = '';
-	let lastName = '';
-	let config = {
-		key: 'pk_test_cfefbb6976c0e4c3640e83b89bfafb87dbc3b8ab',
-		email: 'youremail@email.com',
-		amount: 0,
-		currency: 'NGN',
-		withSlot: true, // If you need to render a custom component to replace default button
-		embed: false,
-		disabled: false,
-		callback: function (/** @type {{ reference: string; }} */ response) {
-			console.log('successfully subscribed. transaction ref is ' + response.reference);
-		},
-		onClose: function () {
-			console.log('window closed');
-		}
-	};
+	let name = '';
+
 	/**
-	 * @param {{ (): void; (): void; }} fn
+	 * @type {any}
 	 */
-	function handlePayment(fn) {
-		config.email = email;
-		config.amount = parseFloat(payAmount) * 100;
-		fn();
+	export let form;
+
+	async function redirect() {
+		await goto(form.data.authorization_url);
+	}
+
+	$: {
+		console.log(form);
+		if (form != null) {
+			redirect();
+		}
 	}
 </script>
 
-<svelte:head>
-	<title>Donate To Congregation Expenses</title>
-</svelte:head>
-
-<Paystack {config} />
 <Container>
-	<div class="payment-form">
-		<h3>Donate To LRC Calabar!</h3>
-		<Paystack let:usePayInline {config}
-			><br />
-			<h5>First Name:</h5>
-			<Input bind:value={firstName} /><br />
-			<h5>Last Name:</h5>
-			<Input bind:value={lastName} /><br />
+	<form action="?/pay" class="paymentForm" method="post">
+		<h3>Donate To LRC Calabar !</h3>
+		<div class="form-group">
+			<h5>Name:</h5>
+			<Input type="text" id="name" name="name" required /><br />
+		</div>
+		<div class="form-group">
 			<h5>Email:</h5>
-			<Input bind:value={email} /><br />
-			<h5>Amount:</h5>
-			<Input bind:value={payAmount} />
-			<br />
-			<Button color="success" block on:click={() => handlePayment(usePayInline)}
-				><b>Pay With Pay Stack</b></Button
-			>
-		</Paystack>
-	</div>
+			<Input type="email" id="email-address" name="email" required /><br />
+		</div>
+		<div class="form-group">
+			<h5>Amount</h5>
+			<Input type="tel" id="amount" name="amount" required bind:value={payAmount} /><br />
+		</div>
+		<div class="form-submit">
+			<Button color="success" block type="submit">Pay With Pay Stack</Button>
+		</div>
+	</form>
 </Container>
 
 <style>
 	* {
 		padding: 0px;
 	}
-	.payment-form {
+	.paymentForm {
 		margin: 100px;
 		color: white;
 		font-size: 1rem;

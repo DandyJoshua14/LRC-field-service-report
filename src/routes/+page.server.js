@@ -4,13 +4,13 @@ import { User, Report } from '../hooks.server';
 
 // async function createUser() {
 //     const user = await User.create({
-//         name: "dandy",
-//         password: "dandy123",
-//         email: "dandyjoshua14@gmail.com",
+//         name: "iniac",
+//         password: "ini1ac@",
+//         email: "iniobongcharles2010@gmail.com",
 //         admin: true,
 //         lastLogin: new Date,
-//          fsg: 3,
-//         privOfSer: "none"
+//          fsg: 1,
+//         privOfSer: "regular pioneer"
 //     });
 //     await user.save()
 //     console.log("User Saved")

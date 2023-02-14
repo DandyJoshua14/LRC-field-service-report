@@ -1,5 +1,15 @@
 <script>
-	import { userName, role, reports, email, validate, fsg, users, privOfSer } from '../stores';
+	import {
+		userName,
+		role,
+		reports,
+		email,
+		validate,
+		fsg,
+		users,
+		privOfSer,
+		month
+	} from '../stores';
 	import { goto } from '$app/navigation';
 	import { Button, Container, Input } from 'sveltestrap';
 	import { enhance } from '$app/forms';
@@ -13,6 +23,10 @@
 	export let form;
 	// @ts-ignore
 
+	async function redirect() {
+		await goto('/home');
+	}
+
 	$: {
 		if (form?.success) {
 			$email = data.userInfo.email;
@@ -23,9 +37,10 @@
 			$fsg = data.userInfo.fsg;
 			$privOfSer = data.userInfo.privOfSer;
 			$users = data.users;
+			$month = data.respond.month;
 		}
-		if ($userName) {
-			goto('/home');
+		if ($userName && $userName != null) {
+			redirect();
 		}
 	}
 </script>

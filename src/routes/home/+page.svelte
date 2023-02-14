@@ -3,7 +3,7 @@
 
 	import { goto } from '$app/navigation';
 	import { Container, Input, Button } from 'sveltestrap';
-	import { userName, role, reports, email, validate, fsg, privOfSer } from '../../stores';
+	import { userName, role, reports, email, validate, fsg, privOfSer, month } from '../../stores';
 	import { enhance } from '$app/forms';
 	let useClass = false;
 	export let data;
@@ -18,6 +18,24 @@
 	let filteredReports = userReports;
 	let searchTerm = '';
 	let filSub = data.filSub;
+	const months = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December'
+	];
+
+	const d = new Date();
+	let currentMonth = months[d.getMonth()];
+
 	$: {
 		// @ts-ignore
 		filteredReports = userReports;
@@ -52,10 +70,10 @@
 	{#if $userName}
 		<Container>
 			<div class="form">
-				{#if !$validate}
+				{#if $month != currentMonth}
 					<form method="POST" action="?/submit" use:enhance>
 						<br />
-						<h2 style="text-align: center;">January Report</h2>
+						<h2 style="text-align: center;">{currentMonth} Report</h2>
 						<br />
 						<Input name="name" type="hidden" value={$userName} />
 						<br />
@@ -76,6 +94,7 @@
 						<Input name="privOfSer" type="hidden" value={$privOfSer} />
 						<Input name="email" type="hidden" value={$email} /><br /><br />
 						<Input name="fsg" type="hidden" value={$fsg} />
+						<Input name="month" type="hidden" value={currentMonth} />
 						<Button color="success">Submit Report</Button>
 					</form>
 				{:else}
@@ -127,7 +146,7 @@
 								<th>Value</th>
 							</tr>
 							<tr>
-								<td>Number Of Publishers</td>
+								<td>Number Of <br />Publishers</td>
 								<td>{numOfPub}</td>
 							</tr>
 							<tr>
