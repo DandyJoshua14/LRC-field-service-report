@@ -1,10 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 let result;
-/**
- * @type {any}
- */
-let apiResponse;
+let apiResponse : any;
 let name;
 let amount
 let email

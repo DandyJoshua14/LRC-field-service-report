@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { Input, Button, Container } from 'sveltestrap';
+	import { browser } from '$app/environment';
 	let payAmount = '';
 	let email = '';
 	let name = '';
@@ -11,14 +12,10 @@
 	 */
 	export let form;
 
-	async function redirect() {
-		await goto(form.data.authorization_url);
-	}
-
 	$: {
 		console.log(form);
-		if (form != null) {
-			redirect();
+		if (form != null && browser) {
+			goto(form.data.authorization_url);
 		}
 	}
 </script>
