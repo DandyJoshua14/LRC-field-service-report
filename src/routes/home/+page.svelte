@@ -68,8 +68,8 @@
 </svelte:head>
 <body>
 	{#if $userName}
-		<Container>
-			<div class="form">
+		<div class="form">
+			<Container>
 				{#if $month != currentMonth}
 					<form method="POST" action="?/submit" use:enhance>
 						<br />
@@ -97,134 +97,132 @@
 						<Input name="month" type="hidden" value={currentMonth} />
 						<Button color="success">Submit Report</Button>
 					</form>
+					<hr style="border: 1.5px solid gray;" />
 				{:else}
 					<h3>You've already Submitted Your Monthly Report</h3>
 				{/if}
+			</Container>
+			<br />
+			{#if $role}
+				<a href="/donate"><Button color="primary">Make Donations Page</Button></a>
+				<h4 style="text-decoration: underline dotted;">{$userName}(Admin)</h4>
 				<br />
-				{#if $role}
-					<a href="/donate"><Button color="primary">Make Donations Page</Button></a>
-					<h4 style="text-decoration: underline dotted;">{$userName}(Admin)</h4>
-					<br />
-					<Input type="text" placeholder="Search Report" bind:value={searchTerm} />
-					<br />
-					{#if filteredReports}
-						<h3>Publishers Reports</h3>
-						<table>
+				<Input type="text" placeholder="Search Report" bind:value={searchTerm} />
+				<br />
+				{#if filteredReports}
+					<h3>Publishers Reports</h3>
+					<table>
+						<tr>
+							<th>S/N</th>
+							<th>Name</th>
+							<th>Hours</th>
+							<th>Placements</th>
+							<th>Return Visits</th>
+							<th>Bible Studies</th>
+							<th>Videos</th>
+							<th>Group No.</th>
+						</tr>
+						{#each filteredReports as report, index}
 							<tr>
-								<th>S/N</th>
-								<th>Name</th>
-								<th>Hours</th>
-								<th>Placements</th>
-								<th>Return Visits</th>
-								<th>Bible Studies</th>
-								<th>Videos</th>
-								<th>Group No.</th>
+								<td>{index + 1}.</td>
+								<td>{report.name}</td>
+								<td>{report.hours}</td>
+								<td>{report.placements}</td>
+								<td>{report.returnVisits}</td>
+								<td>{report.bibleStudies}</td>
+								<td>{report.videos}</td>
+								<td>{report.fsg}</td>
 							</tr>
-							{#each filteredReports as report, index}
-								<tr>
-									<td>{index + 1}.</td>
-									<td>{report.name}</td>
-									<td>{report.hours}</td>
-									<td>{report.placements}</td>
-									<td>{report.returnVisits}</td>
-									<td>{report.bibleStudies}</td>
-									<td>{report.videos}</td>
-									<td>{report.fsg}</td>
-								</tr>
-							{/each}
-						</table>
-						<br />
-						<br />
-						<br />
-						<table class="table1">
-							<tr>
-								<th>Stats</th>
-								<th />
-							</tr>
-							<tr>
-								<th>Field</th>
-								<th>Value</th>
-							</tr>
-							<tr>
-								<td>Number Of <br />Publishers</td>
-								<td>{numOfPub}</td>
-							</tr>
-							<tr>
-								<td>Number Of Reports Submitted</td>
-								{#if numOfPub > filSub}
-									<td style="color: red;">{filSub}</td>
-								{:else}
-									<td style="color: green;">{filSub}</td>
-								{/if}
-							</tr>
-							<tr>
-								<td>Number Of Registered Publishers</td>
-								{#if numOfPub > numOfRegPub}
-									<td style="color: red;">{numOfRegPub}</td>
-								{:else}
-									<td style="color: green;">{numOfRegPub}</td>
-								{/if}
-							</tr>
-							<tr>
-								<td>Number Of Regular Pionners</td>
-								<td>{rp}</td>
-							</tr>
-							<tr>
-								<td>Number Of Auxiliary Pionners</td>
-								<td>{ap}</td>
-							</tr>
-						</table>
-					{/if}
-					<br /><br />
-					<Button color="primary" on:click={showForm}>Create User</Button>
+						{/each}
+					</table>
 					<br />
 					<br />
-					{#if useClass === true}
-						<Container>
-							<form method="POST" action="?/register" use:enhance>
-								<br />
-								<h5>Name:</h5>
-								<Input name="name" type="text" />
-
-								<br />
-								<br />
-
-								<h5>Password:</h5>
-								<Input name="password" type="password" />
-								<br />
-								<br />
-
-								<h5>Email:</h5>
-								<Input name="email" type="email" />
-								<br />
-								<br />
-
-								<h5>Field Service Group No.</h5>
-								<Input type="number" name="fsg" />
-								<br />
-								<br />
-								<h5>Priviledge Of Service</h5>
-								<Input type="select" name="privOfSer">
-									<option value="none">none</option>
-									<option value="regular pioneer">regular pioneer</option>
-									<option value="auxiliary pioneer">auxiliary pioneer</option>
-								</Input>
-								<br />
-								<br />
-
-								<Button color="success">Create User</Button>
-							</form>
-							{#if form?.success}
-								<p style="color: green;">
-									<b>User Created!!! <br /></b>
-								</p>
+					<br />
+					<table class="table1">
+						<tr style="text-align: center;"> <b>Stats </b></tr>
+						<tr>
+							<th>Field</th>
+							<th>Value</th>
+						</tr>
+						<tr>
+							<td>Number Of <br />Publishers</td>
+							<td>{numOfPub}</td>
+						</tr>
+						<tr>
+							<td>Number Of Reports Submitted</td>
+							{#if numOfPub > filSub}
+								<td style="color: red;">{filSub}</td>
+							{:else}
+								<td style="color: green;">{filSub}</td>
 							{/if}
-							{#if form?.missing}<p class="error">Incomplete credentials!</p>{/if}
-						</Container>
-					{/if}
+						</tr>
+						<tr>
+							<td>Number Of Registered Publishers</td>
+							{#if numOfPub > numOfRegPub}
+								<td style="color: red;">{numOfRegPub}</td>
+							{:else}
+								<td style="color: green;">{numOfRegPub}</td>
+							{/if}
+						</tr>
+						<tr>
+							<td>Number Of Regular Pionners</td>
+							<td>{rp}</td>
+						</tr>
+						<tr>
+							<td>Number Of Auxiliary Pionners</td>
+							<td>{ap}</td>
+						</tr>
+					</table>
 				{/if}
-			</div>
-		</Container>
+				<br /><br />
+				<Button color="primary" on:click={showForm}>Create User</Button>
+				<br />
+				<br />
+				{#if useClass === true}
+					<Container>
+						<form method="POST" action="?/register" use:enhance>
+							<br />
+							<h5>Name:</h5>
+							<Input name="name" type="text" />
+
+							<br />
+							<br />
+
+							<h5>Password:</h5>
+							<Input name="password" type="password" />
+							<br />
+							<br />
+
+							<h5>Email:</h5>
+							<Input name="email" type="email" />
+							<br />
+							<br />
+
+							<h5>Field Service Group No.</h5>
+							<Input type="number" name="fsg" />
+							<br />
+							<br />
+							<h5>Priviledge Of Service</h5>
+							<Input type="select" name="privOfSer">
+								<option value="none">none</option>
+								<option value="regular pioneer">regular pioneer</option>
+								<option value="auxiliary pioneer">auxiliary pioneer</option>
+							</Input>
+							<br />
+							<br />
+
+							<Button color="success">Create User</Button>
+						</form>
+						{#if form?.success}
+							<p style="color: green;">
+								<b>User Created!!! <br /></b>
+							</p>
+						{/if}
+						{#if form?.missing}<p class="error">Incomplete credentials!</p>{/if}
+					</Container>
+				{/if}
+			{/if}
+		</div>
 	{:else}
 		<div>
 			<h1 style="text-align: center; padding: 20px;">
