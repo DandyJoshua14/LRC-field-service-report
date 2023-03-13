@@ -3,8 +3,8 @@ import * as dotenv from 'dotenv';
 
 dotenv.config()
 
-export async function POST({ req }) {
-    let data = req.body
+export async function POST({ request }) {
+    let data = request.body
     console.log(data)
     axios.post('https://api.paystack.co/transaction/initialize', {
         headers: {

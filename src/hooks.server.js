@@ -5,13 +5,17 @@ dotenv.config()
 import mongoose from 'mongoose';
 // @ts-ignore
 
+async function connect() {
+   await mongoose.connect(`${process.env.MONGO_URL}`)
+.then(() => console.log('Connected To Databse'))
+.catch((e) => console.log(e))
+}
 
-mongoose.connect(process.env.MONGO_URL, () => {
-    console.log('Connected To Databse')
-})
+connect()
 
+const Schema = mongoose.Schema;
 
-const reportSchema = new mongoose.Schema({
+const reportSchema = new Schema({
     name: String,
     email: String,
     hours: Number,
@@ -33,7 +37,7 @@ const reportSchema = new mongoose.Schema({
    
 })
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
     name: {
         type: String,
         required: true

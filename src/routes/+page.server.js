@@ -4,13 +4,13 @@ import { User, Report } from '../hooks.server';
 
 // async function createUser() {
 //     const user = await User.create({
-//         name: "iniac",
-//         password: "ini1ac@",
-//         email: "iniobongcharles2010@gmail.com",
+//         name: "testuser",
+//         password: "testuser_p@xwd_21",
+//         email: "testuser@gmail.com",
 //         admin: true,
 //         lastLogin: new Date,
 //          fsg: 1,
-//         privOfSer: "regular pioneer"
+//         privOfSer: ""
 //     });
 //     await user.save()
 //     console.log("User Saved")
@@ -20,12 +20,12 @@ import { User, Report } from '../hooks.server';
 
 // async function createNewUser() {
 //   const user = await User.create({
-//       name: "shedrach",
-//       password: "shedy123",
-//       email: "shedy123@gmail.com",
+//       name: "ngwu daniel",
+//       password: "ngwu123_p@xwd",
+//       email: "ngwu123@gmail.com",
 //       admin: true,
 //       lastLogin: new Date,
-//        fsg: 2,
+//        fsg: 3,
 //       privOfSer: "none"
 //   });
 //   await user.save()

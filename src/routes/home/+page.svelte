@@ -32,7 +32,7 @@
 		'November',
 		'December'
 	];
-
+	let preMonth = [];
 	const d = new Date();
 	let currentMonth = months[d.getMonth()];
 
@@ -69,42 +69,40 @@
 <body>
 	{#if $userName}
 		<div class="form">
-			<Container>
-				{#if $month != currentMonth}
-					<form method="POST" action="?/submit" use:enhance>
-						<br />
-						<h2 style="text-align: center;">{currentMonth} Report</h2>
-						<br />
-						<Input name="name" type="hidden" value={$userName} />
-						<br />
-						<br />
-						<h5>Hours:</h5>
-						<Input name="hours" type="number" />
-						<br />
-						<br />
-						<h5>Placements:</h5>
-						<Input name="placements" type="number" /><br /><br />
-						<h5>Return Visits:</h5>
-						<Input name="rv" type="number" /><br /><br />
-						<h5>Bible Studies:</h5>
-						<Input name="biblestudies" type="number" /><br /><br />
-						<h5>Videos:</h5>
-						<Input name="videos" type="number" /><br /><br />
-						<Input name="role" type="hidden" value={$role} /><br /><br />
-						<Input name="privOfSer" type="hidden" value={$privOfSer} />
-						<Input name="email" type="hidden" value={$email} /><br /><br />
-						<Input name="fsg" type="hidden" value={$fsg} />
-						<Input name="month" type="hidden" value={currentMonth} />
-						<Button color="success">Submit Report</Button>
-					</form>
-					<hr style="border: 1.5px solid gray;" />
-				{:else}
-					<h3>You've already Submitted Your Monthly Report</h3>
-				{/if}
-			</Container>
+			{#if $month != currentMonth}
+				<form method="POST" action="?/submit" use:enhance>
+					<br />
+					<h2 style="text-align: center;">{currentMonth} Report</h2>
+					<br />
+					<Input name="name" type="hidden" value={$userName} />
+					<br />
+					<br />
+					<h5>Hours:</h5>
+					<Input name="hours" type="number" />
+					<br />
+					<br />
+					<h5>Placements:</h5>
+					<Input name="placements" type="number" /><br /><br />
+					<h5>Return Visits:</h5>
+					<Input name="rv" type="number" /><br /><br />
+					<h5>Bible Studies:</h5>
+					<Input name="biblestudies" type="number" /><br /><br />
+					<h5>Videos:</h5>
+					<Input name="videos" type="number" /><br /><br />
+					<Input name="role" type="hidden" value={$role} /><br /><br />
+					<Input name="privOfSer" type="hidden" value={$privOfSer} />
+					<Input name="email" type="hidden" value={$email} /><br /><br />
+					<Input name="fsg" type="hidden" value={$fsg} />
+					<Input name="month" type="hidden" value={currentMonth} />
+					<Button color="success">Submit Report</Button>
+				</form>
+				<hr style="border: 1.5px solid gray;" />
+			{:else}
+				<h3>You've already Submitted Your Monthly Report</h3>
+			{/if}
+
 			<br />
 			{#if $role}
-				<a href="/donate"><Button color="primary">Make Donations Page</Button></a>
 				<h4 style="text-decoration: underline dotted;">{$userName}(Admin)</h4>
 				<br />
 				<Input type="text" placeholder="Search Report" bind:value={searchTerm} />
@@ -175,51 +173,51 @@
 					</table>
 				{/if}
 				<br /><br />
+				<a href="/donate"><Button color="success">Make Donations Page</Button></a><br />
+				<br />
 				<Button color="primary" on:click={showForm}>Create User</Button>
 				<br />
 				<br />
 				{#if useClass === true}
-					<Container>
-						<form method="POST" action="?/register" use:enhance>
-							<br />
-							<h5>Name:</h5>
-							<Input name="name" type="text" />
+					<form method="POST" action="?/register" use:enhance>
+						<br />
+						<h5>Name:</h5>
+						<Input name="name" type="text" />
 
-							<br />
-							<br />
+						<br />
+						<br />
 
-							<h5>Password:</h5>
-							<Input name="password" type="password" />
-							<br />
-							<br />
+						<h5>Password:</h5>
+						<Input name="password" type="password" />
+						<br />
+						<br />
 
-							<h5>Email:</h5>
-							<Input name="email" type="email" />
-							<br />
-							<br />
+						<h5>Email:</h5>
+						<Input name="email" type="email" />
+						<br />
+						<br />
 
-							<h5>Field Service Group No.</h5>
-							<Input type="number" name="fsg" />
-							<br />
-							<br />
-							<h5>Priviledge Of Service</h5>
-							<Input type="select" name="privOfSer">
-								<option value="none">none</option>
-								<option value="regular pioneer">regular pioneer</option>
-								<option value="auxiliary pioneer">auxiliary pioneer</option>
-							</Input>
-							<br />
-							<br />
+						<h5>Field Service Group No.</h5>
+						<Input type="number" name="fsg" />
+						<br />
+						<br />
+						<h5>Priviledge Of Service</h5>
+						<Input type="select" name="privOfSer">
+							<option value="none">none</option>
+							<option value="regular pioneer">regular pioneer</option>
+							<option value="auxiliary pioneer">auxiliary pioneer</option>
+						</Input>
+						<br />
+						<br />
 
-							<Button color="success">Create User</Button>
-						</form>
-						{#if form?.success}
-							<p style="color: green;">
-								<b>User Created!!! <br /></b>
-							</p>
-						{/if}
-						{#if form?.missing}<p class="error">Incomplete credentials!</p>{/if}
-					</Container>
+						<Button color="success">Create User</Button>
+					</form>
+					{#if form?.success}
+						<p style="color: green;">
+							<b>User Created!!! <br /></b>
+						</p>
+					{/if}
+					{#if form?.missing}<p class="error">Incomplete credentials!</p>{/if}
 				{/if}
 			{/if}
 		</div>
@@ -235,9 +233,13 @@
 </body>
 
 <style>
+	body {
+		text-align: center;
+		padding-left: 50px;
+		padding-right: 50px;
+	}
 	.form {
 		text-align: center;
-		display: block;
 	}
 	h5 {
 		text-align: left;
