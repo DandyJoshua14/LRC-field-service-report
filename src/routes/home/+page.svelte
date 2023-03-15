@@ -78,17 +78,17 @@
 					<br />
 					<br />
 					<h5>Hours:</h5>
-					<Input name="hours" type="number" />
+					<Input name="hours" type="number" required />
 					<br />
 					<br />
 					<h5>Placements:</h5>
-					<Input name="placements" type="number" /><br /><br />
+					<Input name="placements" type="number" required /><br /><br />
 					<h5>Return Visits:</h5>
-					<Input name="rv" type="number" /><br /><br />
+					<Input name="rv" type="number" required /><br /><br />
 					<h5>Bible Studies:</h5>
-					<Input name="biblestudies" type="number" /><br /><br />
+					<Input name="biblestudies" type="number" required /><br /><br />
 					<h5>Videos:</h5>
-					<Input name="videos" type="number" /><br /><br />
+					<Input name="videos" type="number" required /><br /><br />
 					<Input name="role" type="hidden" value={$role} /><br /><br />
 					<Input name="privOfSer" type="hidden" value={$privOfSer} />
 					<Input name="email" type="hidden" value={$email} /><br /><br />
@@ -209,8 +209,17 @@
 						</Input>
 						<br />
 						<br />
-
-						<Button color="success">Create User</Button>
+						<h5>Is This Person An Admin?</h5>
+						<Input type="select" name="adminStats">
+							<option value="none">none</option>
+							<option value="true">Yes</option>
+							<option value="false">No</option>
+						</Input>
+						<br />
+						<br />
+						<div class="sub-btn" style="padding: 20px;">
+							<Button color="success">Create User</Button>
+						</div>
 					</form>
 					{#if form?.success}
 						<p style="color: green;">

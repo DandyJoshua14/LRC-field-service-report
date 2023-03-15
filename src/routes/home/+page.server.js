@@ -25,6 +25,7 @@ export const actions = {
             fsg,
             month
         })
+        // @ts-ignore
         report.save()
         console.log("Report Submitted")
     },
@@ -33,9 +34,10 @@ export const actions = {
         const data = await request.formData();
         const name = data.get("name").toLowerCase();
         const email = data.get("email").toLowerCase();
+        // @ts-ignore
         const password = data.get("password").toLowerCase();
         const lastLogin = new Date
-        const admin = false
+        const admin = data.get("adminStats").toLowerCase();
         const privOfSer = data.get("privOfSer")
         const fsg = data.get("fsg")
         const user = await User.create({
@@ -55,6 +57,7 @@ export const actions = {
                 incorrect: true
             }    
         } else {
+            // @ts-ignore
             user.save();
             console.log("User Created")
             return {
